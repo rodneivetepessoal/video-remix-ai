@@ -1,0 +1,24 @@
+import { NextResponse } from 'next/server';
+import connectToDatabase from '@/lib/mongodb';
+import VideoProject from '@/lib/models/VideoProject';
+import { videoProcessingQueue } from '@/lib/queue';
+export async function POST(request) {
+    try {
+        await connectToDatabase();
+        const { youtubeUrl } = await request.json();
+        if (!youtubeUrl) {
+            return NextResponse.json({ error: 'URL do YouTube é obrigatória' }, { status: 400 });
+        }
+        const newProject = await VideoProject.create({
+            youtubeUrl,
+            status: 'Processing',
+        });
+        await videoProcessingQueue.add('process-video', { projectId: newProject._id.toString(), youtubeUrl });
+        console.log(`Recebida URL do YouTube: ${youtubeUrl}, Projeto ID: ${newProject._id}`);
+        return NextResponse.json({ message: 'Processamento de vídeo iniciado com sucesso!', projectId: newProject._id });
+    }
+    catch (error) {
+        console.error('Erro ao iniciar o processamento do vídeo:', error);
+        return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
+    }
+}
