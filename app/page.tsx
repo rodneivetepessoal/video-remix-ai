@@ -182,7 +182,7 @@ export default function Home() {
               <input
                 type="url"
                 id="youtubeUrl"
-                className="w-full py-3 px-4 text-white bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-300"
+                className="w-full py-3 px-4 text-gray-900 bg-white/90 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:bg-white transition duration-300 placeholder-gray-500"
                 placeholder="https://www.youtube.com/watch?v=..."
                 value={youtubeUrl}
                 onChange={(e) => setYoutubeUrl(e.target.value)}
