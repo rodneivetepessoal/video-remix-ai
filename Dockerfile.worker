@@ -1,0 +1,18 @@
+# Estágio Único: Worker
+FROM node:20-slim
+WORKDIR /app
+
+# Instala dependências do sistema e o pnpm
+RUN apt-get update && apt-get install -y openssl
+RUN npm install -g pnpm
+
+# Instala as dependências do projeto
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install
+
+# Copia o restante do código fonte
+COPY . .
+
+# CORREÇÃO: Usa a forma "shell" do CMD para garantir que o pnpm e o tsx sejam encontrados.
+CMD pnpm tsx worker.ts
+

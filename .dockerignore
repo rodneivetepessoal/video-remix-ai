@@ -1,0 +1,22 @@
+# Arquivo para otimizar o build do Docker
+
+# Dependências
+node_modules
+npm-debug.log
+.pnpm-debug.log
+
+# Logs
+*.log
+
+# Arquivos de ambiente (serão injetados via docker-compose)
+.env*
+!.env.example
+
+# Metadados do Next.js e cache
+.next
+.vercel
+
+# Outros
+*.tsbuildinfo
+README.md
+*.md

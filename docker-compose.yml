@@ -1,0 +1,45 @@
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env.local
+    # A linha 'command' foi removida para usar o CMD do Dockerfile.
+    depends_on:
+      - redis
+    networks:
+      - video-remix-net
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    env_file:
+      - .env.local
+    # A linha 'command' foi removida para usar o CMD do Dockerfile.worker.
+    depends_on:
+      - redis
+    networks:
+      - video-remix-net
+
+  redis:
+    image: 'redis:7-alpine'
+    ports:
+      - '6379:6379'
+    networks:
+      - video-remix-net
+    volumes:
+      - redis-data:/data
+
+networks:
+  video-remix-net:
+    driver: bridge
+
+volumes:
+  redis-data:
+
