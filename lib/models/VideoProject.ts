@@ -5,6 +5,7 @@ export interface IVideoProject extends Document {
   youtubeUrl: string;
   status: 'Processing' | 'Completed' | 'Failed';
   finalVideoUrl?: string;
+  renderId?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -13,6 +14,7 @@ const VideoProjectSchema = new Schema<IVideoProject>({
   youtubeUrl: { type: String, required: true },
   status: { type: String, enum: ['Processing', 'Completed', 'Failed'], default: 'Processing' },
   finalVideoUrl: { type: String },
+  renderId: { type: String },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

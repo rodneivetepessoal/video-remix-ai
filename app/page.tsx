@@ -301,10 +301,10 @@ export default function Home() {
                           {getProcessingTime(project.createdAt, project.updatedAt)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          {project.status === 'Completed' && project.finalVideoUrl ? (
+                          {project.status === 'Completed' && project.renderId ? (
                             <div className="flex space-x-2">
                               <a
-                                href={project.finalVideoUrl}
+                                href={`/api/video-proxy/${project.renderId}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs transition duration-200"
@@ -312,8 +312,8 @@ export default function Home() {
                                 Assistir
                               </a>
                               <a
-                                href={project.finalVideoUrl}
-                                download
+                                href={`/api/video-proxy/${project.renderId}`}
+                                download={`video-remix-${project.renderId.substring(0, 8)}.mp4`}
                                 className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs transition duration-200"
                               >
                                 Baixar
